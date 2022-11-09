@@ -1,0 +1,133 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+p {
+  line-height: 1.7;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  line-height: 2.2;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.container {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #e6e6e6;
+  margin-bottom: 60px;
+}
+
+.header ul {
+  display: flex;
+  align-items: center;
+}
+
+.header ul li {
+  margin-left: 20px;
+}
+
+.header ul li a {
+  display: flex;
+  align-items: center;
+}
+
+.header ul li a svg {
+  margin-right: 5px;
+}
+
+.heading h1 {
+  font-size: 50px;
+}
+
+.heading p {
+  font-size: 36px;
+  font-weight: bold;
+  color: rgb(134, 131, 131);
+  margin-bottom: 50px;
+}
+
+.form-group {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.form-group .item {
+  position: relative;
+
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 20px;
+  margin: 20px 0;
+  border: 1px solid rgb(134, 131, 131);
+  border-radius: 5px;
+}
+
+.form-group input::placeholder {
+  font-size: 14px;
+  color: rgb(134, 131, 131);
+
+}
+
+.form-group .password-show {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+
+}
+
+.form-group .password-show svg {
+  transform: translateY(-50%)
+}
+
+.button-group button {
+  padding: 10px 30px;
+  background-color: royalblue;
+  color: #fff;
+  border: 0;
+  border-radius: 3px;
+}
+
+.button-group button:disabled {
+  background-color: #eee;
+  color: #000;
+  cursor: not-allowed;
+}
+
+.button-group :last-child {
+  margin-left: 20px;
+}
