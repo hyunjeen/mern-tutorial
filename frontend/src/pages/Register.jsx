@@ -4,6 +4,7 @@ import { BiShowAlt, BiHide } from "react-icons/bi";
 
 const Register = () => {
   const [toggle, Toggle] = useState(false);
+  const [toggle2, Toggle2] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,6 +20,9 @@ const Register = () => {
   };
   const toggleHandler = () => {
     Toggle((prev) => !prev);
+  };
+  const toggleHandler2 = () => {
+    Toggle2((prev) => !prev);
   };
   const { name, email, password, password2 } = formData;
   return (
@@ -50,7 +54,7 @@ const Register = () => {
           </div>
           <div className="item">
             <input
-              type="password"
+              type={toggle ? "text" : "password"}
               name="password"
               value={password}
               placeholder="비밀번호"
@@ -66,14 +70,18 @@ const Register = () => {
           </div>
           <div className="item">
             <input
-              type={toggle ? "password" : "text"}
+              type={toggle2 ? "password" : "text"}
               name="password2"
               value={password2}
               placeholder="비밀번호 확인"
               onChange={onChange}
             />
             <div className="password-show">
-              <BiShowAlt />
+              {toggle2 ? (
+                <BiHide onClick={toggleHandler2} />
+              ) : (
+                <BiShowAlt onClick={toggleHandler2} />
+              )}
             </div>
           </div>
         </div>
