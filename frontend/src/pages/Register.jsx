@@ -70,7 +70,7 @@ const Register = () => {
           </div>
           <div className="item">
             <input
-              type={toggle2 ? "password" : "text"}
+              type={toggle2 ? "text" : "password"}
               name="password2"
               value={password2}
               placeholder="비밀번호 확인"
@@ -86,7 +86,7 @@ const Register = () => {
           </div>
         </div>
         <div className="button-group">
-          <button disabled>회원가입</button>
+          <button>회원가입</button>
           <button type="button">취소</button>
         </div>
       </form>
