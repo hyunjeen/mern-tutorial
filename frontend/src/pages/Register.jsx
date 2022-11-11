@@ -1,6 +1,12 @@
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { register, reset } from "../features/auth/authSlice";
 import { FaUser } from "react-icons/fa";
 import { BiShowAlt, BiHide } from "react-icons/bi";
+import { useEffect } from "react";
+import { Spinner } from "../components/Spinner";
 
 const Register = () => {
   const [toggle, Toggle] = useState(false);
@@ -11,7 +17,35 @@ const Register = () => {
     password: "",
     password2: "",
   });
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user, isLoding, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
 
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+    if (isSuccess || user) {
+      navigate("/");
+    }
+    dispatch(reset());
+  }, [user, isLoding, isError, isSuccess, message, navigate, dispatch]);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (password !== password2) {
+      toast.error("password do not match");
+    } else {
+      const userData = {
+        name,
+        email,
+        password,
+      };
+      dispatch(register(userData));
+    }
+  };
   const onChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -25,6 +59,10 @@ const Register = () => {
     Toggle2((prev) => !prev);
   };
   const { name, email, password, password2 } = formData;
+
+  if (isLoding) {
+    return <Spinner />;
+  }
   return (
     <section className="heading">
       <h1>
@@ -32,7 +70,7 @@ const Register = () => {
         Register
       </h1>
       <p>please create an account</p>
-      <form>
+      <form onSubmit={onSubmit}>
         <div className="form-group">
           <div className="item">
             <input

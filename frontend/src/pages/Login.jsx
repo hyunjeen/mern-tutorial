@@ -1,13 +1,47 @@
 import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { BiShowAlt, BiHide } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { login, reset } from "../features/auth/authSlice";
+import { useEffect } from "react";
+import { Spinner } from "../components/Spinner";
 
 const Login = () => {
   const [toggle, Toggle] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user, isLoding, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (!email) {
+      toast.error("add filed email");
+      return;
+    }
+    if (!password) {
+      toast.error("add filed password");
+      return;
+    }
+    const userData = { email, password };
+    dispatch(login(userData));
+  };
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+    if (isSuccess || user) {
+      navigate("/");
+    }
+    dispatch(reset());
+  }, [user, isLoding, isError, isSuccess, message, navigate, dispatch]);
 
   const onChange = (e) => {
     setFormData((prev) => ({
@@ -18,6 +52,9 @@ const Login = () => {
   const toggleHandler = () => {
     Toggle((prev) => !prev);
   };
+  if (isLoding) {
+    return <Spinner />;
+  }
   const { email, password } = formData;
   return (
     <section className="heading">
@@ -26,7 +63,7 @@ const Login = () => {
         Login
       </h1>
       <p>please Login</p>
-      <form>
+      <form onSubmit={onSubmit}>
         <div className="form-group">
           <div className="item">
             <input
@@ -55,7 +92,7 @@ const Login = () => {
           </div>
         </div>
         <div className="button-group">
-          <button disabled>로그인</button>
+          <button type="submit">로그인</button>
           <button type="button">취소</button>
         </div>
       </form>
