@@ -4,7 +4,8 @@ import { BiShowAlt, BiHide } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { login, reset } from "../features/auth/authSlice";
+import { reset } from "../features/auth/authSlice";
+import { login } from "../features/auth/authThunk";
 import { useEffect } from "react";
 import { Spinner } from "../components/Spinner";
 
@@ -19,6 +20,17 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+    if (isSuccess || user) {
+      navigate("/");
+    }
+    dispatch(reset());
+  }, [user, isLoding, isError, isSuccess, message, navigate, dispatch]);
+
   const onSubmit = (e) => {
     e.preventDefault();
     if (!email) {
@@ -32,16 +44,6 @@ const Login = () => {
     const userData = { email, password };
     dispatch(login(userData));
   };
-
-  useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
-    if (isSuccess || user) {
-      navigate("/");
-    }
-    dispatch(reset());
-  }, [user, isLoding, isError, isSuccess, message, navigate, dispatch]);
 
   const onChange = (e) => {
     setFormData((prev) => ({
