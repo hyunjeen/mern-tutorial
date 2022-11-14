@@ -131,3 +131,14 @@ h3 {
 .button-group :last-child {
   margin-left: 20px;
 }
+
+.list-item {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-item p {
+  margin: 0;
+}
